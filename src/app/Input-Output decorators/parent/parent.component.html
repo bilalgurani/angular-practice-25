@@ -1,0 +1,11 @@
+<p>This is PARENT COMPONENT</p>
+<button class="btn btn-p" (click)="onButtonClick()">Send data to child</button>
+<p>data received from {{rData}}</p>
+
+<app-child [data]="childData" (sendData)="receiveData($event)"></app-child>
+<!--
+* Input and Output works If we have component inside another component
+* We have to define @Input and @Output at the child component's .ts file
+* For @Output we need to use the function like this: (sendData)="receiveData($event)"
+
+-->
