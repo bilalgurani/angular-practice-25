@@ -1,0 +1,63 @@
+<div class="r-form">
+  <form [formGroup]="registrationForm" (ngSubmit)="formSubmit()">
+    <div class="form-container">
+    <div class="row-full">
+      <input formControlName="email" class="input-sq full-width" type="email" placeholder="Email">
+    </div>
+    <div class="row">
+      <input formControlName="fName" class="input-sq" type="text" placeholder="First name">
+      <input formControlName="lName" class="input-sq" type="text" placeholder="Last name">
+    </div>
+    <div class="row">
+      <input formControlName="phone" class="input-sq" type="number" placeholder="Phone number">
+      <input formControlName="date" class="input-sq" type="date">
+    </div>
+    <div class="radio-grp">
+      <div class="radio-heading">
+        <p>Gender</p>
+      </div>
+      <div class="radio-btn-grp">
+        <div class="radio-btn">
+          <input class="radio-btn-input" id="male" formControlName="gender" value="male" type="radio" name="gender">
+          <label class="radio-btn-label" for="male">
+            <span class="form-radio-btn"></span>
+            male
+          </label>
+        </div>
+        <div class="radio-btn">
+          <input class="radio-btn-input" id="female" formControlName="gender" value="female" type="radio" name="gender">
+          <label class="radio-btn-label" for="female">
+            <span class="form-radio-btn"></span>
+            male</label>
+        </div>
+        <div class="radio-btn">
+          <input class="radio-btn-input" id="other" formControlName="gender" value="other" type="radio" name="gender">
+          <label class="radio-btn-label" for="other">
+            <span class="form-radio-btn"></span>
+            prefer not to say
+          </label>
+        </div>
+      </div>
+    </div>
+      <div class="row-address" formGroupName="address">
+        <div class="row">
+          <input formControlName="street1" class="input-sq" type="text" placeholder="street address">
+          <input formControlName="street2" class="input-sq" type="text" placeholder="street address line 2">
+        </div>
+        <div class="row">
+          <select class="input-sq" name="countries" formControlName="country">
+            <option value="">Select a country</option>
+            <option *ngFor="let country of countries" [value]="country">
+              {{ country }}</option>
+          </select>
+          <input formControlName="city" class="input-sq" type="text" placeholder="city">
+        </div>
+        <div class="row">
+          <input formControlName="region" class="input-sq" type="text" placeholder="region">
+          <input formControlName="zipcode" class="input-sq" type="number" placeholder="zip code">
+        </div>
+      </div>
+    <button [disabled]="registrationForm.invalid" type="submit" class="btn-ani">submit</button>
+    </div>
+  </form>
+</div>
