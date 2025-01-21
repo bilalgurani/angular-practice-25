@@ -1,14 +1,15 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {FetchCountriesService} from './fetch-countries.service';
-import {NgForOf, NgIf} from '@angular/common';
+import { NgClass, NgForOf, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-reactive-form',
   imports: [
     ReactiveFormsModule,
     NgForOf,
-    NgIf
+    NgIf,
+    NgClass
   ],
   templateUrl: './reactive-form.component.html',
   styleUrl: './reactive-form.component.scss'
@@ -16,6 +17,7 @@ import {NgForOf, NgIf} from '@angular/common';
 export class ReactiveFormComponent implements OnInit {
   countriesService = inject(FetchCountriesService);
   countries: any = [];
+  newSkill = new FormControl('', Validators.required);
 
   ngOnInit() {
     this.getCountries();
@@ -36,8 +38,16 @@ export class ReactiveFormComponent implements OnInit {
       city: new FormControl('', Validators.required),
       region: new FormControl(''),
       zipcode: new FormControl('', Validators.required),
-    })
+    }),
+    // skills: new FormArray([
+    //   new FormControl(''),
+    // ])
+    skills: new FormArray([], Validators.required),
 });
+
+  get skills(): FormArray {
+    return this.registrationForm.get('skills') as FormArray;
+  }
 
   formSubmit() {
     console.log(this.registrationForm);
@@ -50,5 +60,17 @@ export class ReactiveFormComponent implements OnInit {
         this.countries.sort();
       })
     })
+  }
+
+  addSkills() {
+    if (this.newSkill?.valid && this.skills.length < 5) {
+      this.skills.push(new FormControl(this.newSkill.value, Validators.required));
+      this.newSkill?.reset();
+    }
+    // this.skills.push(new FormControl(''));
+  }
+
+  removeSkill(i: number) {
+    this.skills.removeAt(i);
   }
 }
