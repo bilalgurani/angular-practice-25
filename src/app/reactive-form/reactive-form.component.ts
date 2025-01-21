@@ -1,13 +1,14 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {FetchCountriesService} from './fetch-countries.service';
-import {NgForOf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-reactive-form',
   imports: [
     ReactiveFormsModule,
-    NgForOf
+    NgForOf,
+    NgIf
   ],
   templateUrl: './reactive-form.component.html',
   styleUrl: './reactive-form.component.scss'
@@ -22,19 +23,19 @@ export class ReactiveFormComponent implements OnInit {
 
 
   registrationForm = new FormGroup({
-    email: new FormControl(''),
-    fName: new FormControl(''),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    fName: new FormControl('', Validators.required),
     lName: new FormControl(''),
-    phone: new FormControl(''),
+    phone: new FormControl('', Validators.required),
     date: new FormControl(''),
-    gender: new FormControl('male'),
+    gender: new FormControl('male', Validators.required),
     address: new FormGroup({
-      street1: new FormControl(''),
+      street1: new FormControl('', Validators.required),
       street2: new FormControl(''),
-      country: new FormControl(''),
-      city: new FormControl(''),
+      country: new FormControl('', Validators.required),
+      city: new FormControl('', Validators.required),
       region: new FormControl(''),
-      zipcode: new FormControl(''),
+      zipcode: new FormControl('', Validators.required),
     })
 });
 

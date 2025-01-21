@@ -3,14 +3,24 @@
     <div class="form-container">
     <div class="row-full">
       <input formControlName="email" class="input-sq full-width" type="email" placeholder="Email">
+      <p class="error-msg" *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched">
+        <span *ngIf="registrationForm.get('email')?.errors?.['required']">Email is required!</span>
+        <span *ngIf="registrationForm.get('email')?.errors?.['email']">Email format is not proper!</span>
+      </p>
     </div>
     <div class="row">
-      <input formControlName="fName" class="input-sq" type="text" placeholder="First name">
-      <input formControlName="lName" class="input-sq" type="text" placeholder="Last name">
+      <div class="row-with-err-msg">
+        <input formControlName="fName" class="input-sq" type="text" placeholder="First name">
+        <input formControlName="lName" class="input-sq" type="text" placeholder="Last name">
+      </div>
+      <p class="error-msg" *ngIf="registrationForm.get('fName')?.invalid && registrationForm.get('fName')?.touched">This field is required!</p>
     </div>
     <div class="row">
-      <input formControlName="phone" class="input-sq" type="number" placeholder="Phone number">
-      <input formControlName="date" class="input-sq" type="date">
+      <div class="row-with-err-msg">
+        <input formControlName="phone" class="input-sq" type="number" placeholder="Phone number">
+        <input formControlName="date" class="input-sq" type="date">
+      </div>
+      <p class="error-msg" *ngIf="registrationForm.get('phone')?.invalid && registrationForm.get('phone')?.touched">This field is required!</p>
     </div>
     <div class="radio-grp">
       <div class="radio-heading">
@@ -41,23 +51,33 @@
     </div>
       <div class="row-address" formGroupName="address">
         <div class="row">
-          <input formControlName="street1" class="input-sq" type="text" placeholder="street address">
-          <input formControlName="street2" class="input-sq" type="text" placeholder="street address line 2">
+          <div class="row-with-err-msg">
+            <input formControlName="street1" class="input-sq" type="text" placeholder="street address">
+            <input formControlName="street2" class="input-sq" type="text" placeholder="street address line 2">
+          </div>
+          <p class="error-msg" *ngIf="registrationForm.get('address.street1')?.invalid && registrationForm.get('address.street1')?.touched">This field is required!</p>
+
         </div>
         <div class="row">
-          <select class="input-sq" name="countries" formControlName="country">
-            <option value="">Select a country</option>
-            <option *ngFor="let country of countries" [value]="country">
-              {{ country }}</option>
-          </select>
-          <input formControlName="city" class="input-sq" type="text" placeholder="city">
+          <div class="row-with-err-msg">
+            <select class="input-sq" name="countries" formControlName="country">
+              <option value="">Select a country</option>
+              <option *ngFor="let country of countries" [value]="country">
+                {{ country }}</option>
+            </select>
+            <input formControlName="city" class="input-sq" type="text" placeholder="city">
+          </div>
+          <p class="error-msg" *ngIf="registrationForm.get('address.country')?.invalid && registrationForm.get('address.country')?.touched">This field is required!</p>
         </div>
         <div class="row">
-          <input formControlName="region" class="input-sq" type="text" placeholder="region">
-          <input formControlName="zipcode" class="input-sq" type="number" placeholder="zip code">
+          <div class="row-with-err-msg">
+            <input formControlName="region" class="input-sq" type="text" placeholder="region">
+            <input formControlName="zipcode" class="input-sq" type="number" placeholder="zip code">
+          </div>
+          <p class="error-msg" *ngIf="registrationForm.get('address.zipcode')?.invalid && registrationForm.get('address.zipcode')?.touched">This field is required!</p>
         </div>
       </div>
-    <button [disabled]="registrationForm.invalid" type="submit" class="btn-ani">submit</button>
+    <button  type="submit" class="btn-ani">submit</button>
     </div>
   </form>
 </div>

@@ -22,11 +22,15 @@ input {
   }
 }
 
+.error-msg {
+  color: red;
+  font-size: 1rem;
+}
+
 
 .row {
   display: flex;
-  flex-direction: row;
-  gap: 2rem 1rem;
+  flex-direction: column;
   width: 100%;
 }
 
@@ -42,10 +46,16 @@ input {
   box-sizing: border-box;
   font-size: inherit;
 }
-
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+select.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
 .row-full {
   display: flex;
   justify-content: stretch;
+  flex-direction: column;
 }
 
 .full-width {
@@ -95,6 +105,23 @@ input {
   }
 }
 
+.btn-ani-disabled {
+  background-color: grey;
+  color: lightgrey;
+  cursor: not-allowed;
+  border: none;
+}
+
+.btn-ani-disabled:hover {
+  background-color: grey;
+  color: lightgrey;
+  border: none;
+  letter-spacing: normal;
+}
+.row-with-err-msg {
+  display: flex;
+  gap: 2rem 1rem;
+}
 p {
   font-size: 1.8rem;
 }
