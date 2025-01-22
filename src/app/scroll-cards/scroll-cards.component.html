@@ -1,0 +1,14 @@
+<div class="container stack-area" #stackArea>
+  <div class="left">
+    <h1>Hi, I'm Bilal</h1>
+    <p>I work as a Software Engineer at Vestas for the last 1year and before I was workint at Utopus for last 3 years. I have interest in Web Designing and not using any library for the development work instead starts from the scratch.
+    </p>
+    <button class="btn">Contact</button>
+  </div>
+  <div class="right">
+    <div class="card" *ngFor="let card of cardsArray" #card>
+      <h3>{{card.title}}</h3>
+      <h1>{{card.intro}}</h1>
+    </div>
+  </div>
+</div>
