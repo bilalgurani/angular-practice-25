@@ -1,0 +1,34 @@
+<div class="container" *ngIf="isWindowOpen">
+  <div class="sign-up">
+    <p class="close-form" (click)="closeForm()">&#10006;</p>
+    <div class="sign-up__left">
+      <img class="sign-up__img" alt="beautiful building image"
+           src="assets/code-img.jpg">
+    </div>
+    <div class="sign-up__right">
+        <h3 class="heading-tertiary">sign up</h3>
+        <form class="sign-up__right__form" [formGroup]="registrationForm" (ngSubmit)="saveUser()">
+          <input class="input-d" type="text" placeholder="First name" formControlName="name" required>
+          <p class="error-msg" *ngIf="registrationForm.get('name')?.invalid &&
+           registrationForm.get('name')?.touched && registrationForm.get('name')?.dirty">Name field is required!</p>
+          <input class="input-d" type="text" placeholder="Last name" formControlName="lName">
+          <p class="error-msg" *ngIf="registrationForm.get('lName')?.invalid &&
+           registrationForm.get('lName')?.touched && registrationForm.get('lName')?.dirty">Last name field is required!</p>
+          <input class="input-d" type="email" placeholder="Email address" formControlName="email">
+          <p class="error-msg" *ngIf="registrationForm.get('email')?.invalid &&
+           registrationForm.get('email')?.touched && registrationForm.get('email')?.dirty">Email field is required!</p>
+          <input class="input-d" type="password" placeholder="Password" formControlName="password">
+          <p class="error-msg" *ngIf="registrationForm.get('password')?.invalid &&
+           registrationForm.get('password')?.touched && registrationForm.get('password')?.dirty">Password field is required!</p>
+          <div class="sign-up__right__checkbox">
+            <input type="checkbox" formControlName="terms">
+            <a href="#" class="terms-link">Accept terms & conditions</a>
+          </div>
+          <button class="btn-user" type="submit" [disabled]="registrationForm.invalid || registrationForm.value.terms === false">Join us</button>
+          <span>-----------------or--------------------</span>
+          <button type="submit" [disabled]="registrationForm.invalid">Sign up with Google</button>
+          <button type="submit" [disabled]="registrationForm.invalid">Sign up with Apple</button>
+        </form>
+    </div>
+  </div>
+</div>
