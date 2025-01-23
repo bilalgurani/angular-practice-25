@@ -1,1 +1,8 @@
-<app-reactive-form></app-reactive-form>
+<div class="main">
+<button (click)="openForm()">open form</button>
+<app-http-request-response
+  [isWindowOpen]="openWindow"
+  (isWindowClosed)="closeWindow($event)">
+</app-http-request-response>
+</div>
+<!--<app-scroll-cards></app-scroll-cards>-->
