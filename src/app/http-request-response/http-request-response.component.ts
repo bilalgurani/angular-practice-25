@@ -1,8 +1,8 @@
-import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
+import {Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {NgIf} from '@angular/common';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {User} from '../models/user';
-import {HttpClient} from '@angular/common/http';
+import {User} from "../models/user";
+import {HttpServices} from "./http-services";
 
 @Component({
   selector: 'app-http-request-response',
@@ -13,10 +13,14 @@ import {HttpClient} from '@angular/common/http';
   templateUrl: './http-request-response.component.html',
   styleUrl: './http-request-response.component.scss'
 })
-export class HttpRequestResponseComponent {
-  @Input() isWindowOpen: boolean | undefined;
-  @Output() isWindowClosed: EventEmitter<boolean> = new EventEmitter<boolean>();
-  http: HttpClient = inject(HttpClient);
+export class HttpRequestResponseComponent implements OnInit, OnChanges {
+  @Input() deleteUser: string | undefined;
+  @Input() updateUnable: boolean = false;
+  @Input() selectedUser: User | undefined;
+  @Output() close: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() sendUsersData: EventEmitter<User[]> = new EventEmitter<User[]>();
+
+  httpService: HttpServices = inject(HttpServices);
 
   registrationForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -26,20 +30,45 @@ export class HttpRequestResponseComponent {
     terms: new FormControl(false, [Validators.required]),
   })
 
+  ngOnInit() {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['selectedUser'] && this.selectedUser && this.updateUnable) {
+      this.registrationForm.patchValue({
+        name: this.selectedUser.name,
+        lName: this.selectedUser.lName,
+        email: this.selectedUser.email,
+        password: this.selectedUser.password,
+        terms: this.selectedUser.terms,
+      });
+    }
+  }
+
+
   closeForm() {
-    console.log("close form");
-    this.isWindowClosed.emit(false);
+    this.close.emit(true);
     this.registrationForm.reset();
   }
 
   saveUser() {
-    if (this.registrationForm.valid) {
-      const user: User = this.registrationForm.value as User;
-      this.http.post("https://angular-project-25-default-rtdb.firebaseio.com/users.json", user)
-      .subscribe(() => {
-        this.closeForm();
+    let user = this.registrationForm.value as User;
+    if (this.selectedUser && this.updateUnable) {
+      this.httpService.updateData(this.selectedUser.id, user).subscribe(() => {
+        this.updateUnable = false
+        this.close.emit(true);
+        this.fetchAllUsers();
       })
+    } else {
+      this.httpService.saveUser(user).subscribe(() => {
+        this.close.emit(true);
+        this.fetchAllUsers();
+      });
     }
+  }
 
+  fetchAllUsers() {
+    this.sendUsersData.emit();
   }
 }
+
