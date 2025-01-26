@@ -3,4 +3,6 @@ export interface User {
   lName: string;
   email: string;
   password: string;
+  terms: boolean;
+  id?: string;
 }

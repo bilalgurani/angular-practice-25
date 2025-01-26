@@ -1,4 +1,4 @@
-<div class="container" *ngIf="isWindowOpen">
+<div class="container">
   <div class="sign-up">
     <p class="close-form" (click)="closeForm()">&#10006;</p>
     <div class="sign-up__left">
@@ -24,7 +24,7 @@
             <input type="checkbox" formControlName="terms">
             <a href="#" class="terms-link">Accept terms & conditions</a>
           </div>
-          <button class="btn-user" type="submit" [disabled]="registrationForm.invalid || registrationForm.value.terms === false">Join us</button>
+          <button class="btn-user" type="submit" [disabled]="registrationForm.invalid || registrationForm.value.terms === false">{{updateUnable ? "Update user" : "Join us"  }}</button>
           <span>-----------------or--------------------</span>
           <button type="submit" [disabled]="registrationForm.invalid">Sign up with Google</button>
           <button type="submit" [disabled]="registrationForm.invalid">Sign up with Apple</button>
