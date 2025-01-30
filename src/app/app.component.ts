@@ -3,16 +3,19 @@ import {HttpRequestResponseComponent} from './http-request-response/http-request
 import {NgClass, NgForOf, NgIf} from '@angular/common';
 import {User} from './models/user';
 import {HttpServices} from './http-request-response/http-services';
+import {RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-root',
   imports: [
-    HttpRequestResponseComponent,
     NgForOf,
     NgIf,
     NgClass,
+    RouterOutlet,
+    HttpRequestResponseComponent,
   ],
   templateUrl: './app.component.html',
+  standalone: true,
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {

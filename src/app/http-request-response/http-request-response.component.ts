@@ -11,6 +11,7 @@ import {HttpServices} from "./http-services";
     ReactiveFormsModule
   ],
   templateUrl: './http-request-response.component.html',
+  standalone: true,
   styleUrl: './http-request-response.component.scss'
 })
 export class HttpRequestResponseComponent implements OnInit, OnChanges {
